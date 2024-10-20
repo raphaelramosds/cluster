@@ -1,50 +1,44 @@
 version: "3.7"
 services:
   master:
-    image: raphael/master-hadoop:2.4.6
+    image: raphael/master-hadoop
     container_name: master
     hostname: master
     tty: true
     volumes:
       - ./user_data:/user_data
     ports:
-      - "8088:8088" # ResourceManager
-      - "11070:50070" # NameNode WebUI
-      - "10015:10015" # HDFS
-      - "8080:8080" # WebUI Master
-      - "8042:8042" # NodeManager
+      - "8088:8088"
+      - "11070:50070"
+      - "10015:10015"
+      - "8080:8080"
+      - "8042:8042"
     networks: 
       hadoop-network:
         ipv4_address: 10.5.0.2
-    environment:
-      - "SPARK_LOCAL_IP=master"
 
   slave0:
-    image: raphael/worker-hadoop:2.4.6
+    image: raphael/worker-hadoop
     container_name: slave0
     hostname: slave0
     tty: true
     depends_on:
       - master
     ports:
-      - "6042:8042" # NodeManager
-    environment:
-      - "SPARK_LOCAL_IP=slave0"
+      - "6042:8042"
     networks: 
       hadoop-network:
         ipv4_address: 10.5.0.3
 
   slave1:
-    image: raphael/worker-hadoop:2.4.6
+    image: raphael/worker-hadoop
     container_name: slave1
     hostname: slave1
     tty: true
     depends_on:
       - master
     ports:
-      - "7042:8042" # NodeManager
-    environment:
-      - "SPARK_LOCAL_IP=slave1"
+      - "7042:8042"
     networks: 
       hadoop-network:
         ipv4_address: 10.5.0.4
