@@ -4,7 +4,7 @@ ENV HADOOP_VERSION=3.4.0
 ENV HADOOP_MINOR_VERSION=3.4
 ENV HADOOP_HOME=/usr/hadoop-$HADOOP_VERSION
 ENV HADOOP_CONF_DIR=$HADOOP_HOME/etc/hadoop
-ENV PATH=$PATH:$JAVA_HOME/bin:$HADOOP_HOME/bin:$PYTHONPATH
+ENV PATH=$PATH:$JAVA_HOME/bin:$HADOOP_HOME
 
 RUN apt-get update
 
@@ -25,7 +25,7 @@ RUN chmod 600 ~/.ssh/authorized_keys
 COPY /config/config /root/.ssh
 RUN chmod 600 /root/.ssh/config
 
-COPY config/hadoop/*.xml /usr/hadoop-${HADOOP_VERSION}/etc/hadoop/
+COPY config/hadoop/* /usr/hadoop-${HADOOP_VERSION}/etc/hadoop/
 COPY config/scripts /
 
 EXPOSE 9000 4040 8020 22 9083
