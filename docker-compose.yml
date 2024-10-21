@@ -1,7 +1,7 @@
 version: "3.7"
 services:
   master:
-    image: raphael/master-hadoop
+    image: raphael/base-hadoop
     container_name: master
     hostname: master
     tty: true
@@ -18,7 +18,7 @@ services:
         ipv4_address: 10.5.0.2
 
   slave0:
-    image: raphael/worker-hadoop
+    image: raphael/base-hadoop
     container_name: slave0
     hostname: slave0
     tty: true
@@ -31,7 +31,7 @@ services:
         ipv4_address: 10.5.0.3
 
   slave1:
-    image: raphael/worker-hadoop
+    image: raphael/base-hadoop
     container_name: slave1
     hostname: slave1
     tty: true
