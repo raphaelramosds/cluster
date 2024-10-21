@@ -4,16 +4,17 @@ ENV HADOOP_VERSION=3.4.0
 ENV HADOOP_MINOR_VERSION=3.4
 ENV HADOOP_HOME=/usr/hadoop-$HADOOP_VERSION
 ENV HADOOP_CONF_DIR=$HADOOP_HOME/etc/hadoop
+ENV PATH=$PATH:$JAVA_HOME/bin:$HADOOP_HOME/bin:$PYTHONPATH
 
 RUN apt-get update
 
 RUN apt-get install -y wget vim ssh openssh-server curl iputils-ping python3 python3-pip python3-dev build-essential libssl-dev
 
-RUN wget "http://archive.apache.org/dist/hadoop/common/hadoop-${HADOOP_VERSION}/hadoop-${HADOOP_VERSION}.tar.gz"
+RUN wget -nc -c --no-check-certificate "https://dlcdn.apache.org/hadoop/common/hadoop-${HADOOP_VERSION}/hadoop-${HADOOP_VERSION}.tar.gz"
 
 RUN tar zvxf hadoop-${HADOOP_VERSION}.tar.gz -C /usr/
 RUN rm hadoop-${HADOOP_VERSION}.tar.gz 
-RUN -rf ${HADOOP_HOME}/share/doc/
+RUN rm -rf ${HADOOP_HOME}/share/doc
 RUN chown -R root:root ${HADOOP_HOME}
 
 RUN echo "export JAVA_HOME=${JAVA_HOME}" >> /etc/environment
