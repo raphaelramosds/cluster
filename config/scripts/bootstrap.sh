@@ -1,11 +1,12 @@
 #!/bin/bash
 
-# Inicio do SSH
+# Start SSH service
 /etc/init.d/ssh start
 
-# Abaixo temos o trecho que rodará apenas no master.
+# Only execute this on master
 if [[ $HOSTNAME == "master" ]]; then
     
+    # FIXME (please) Avoid formatting HDFS every time the container start
     printf "Formatting filesystem ... \n"
     hdfs namenode -format -nonInteractive
 
