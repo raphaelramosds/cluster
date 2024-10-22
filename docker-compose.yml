@@ -8,11 +8,8 @@ services:
     volumes:
       - ./user_data:/user_data
     ports:
-      - "8088:8088"
-      - "11070:50070"
-      - "10015:10015"
-      - "8080:8080"
-      - "8042:8042"
+      - "8088:8088/tcp"
+      - "9870:9870/tcp"
     networks: 
       hadoop-network:
         ipv4_address: 10.5.0.2
