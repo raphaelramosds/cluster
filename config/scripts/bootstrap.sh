@@ -14,5 +14,5 @@ if [[ $HOSTNAME = master ]]; then
     $HADOOP_HOME/sbin/start-yarn.sh
 fi
 
-# Starting bash terminal
+# Starting bash terminal for keeping slaves alive
 /bin/bash
