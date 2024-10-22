@@ -14,5 +14,5 @@ if [[ $HOSTNAME = master ]]; then
     $HADOOP_HOME/sbin/start-yarn.sh
 fi
 
-# Loop com sleep
-while :; do sleep 2073600; done
+# Starting bash terminal
+/bin/bash
