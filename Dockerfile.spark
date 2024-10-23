@@ -1,7 +1,7 @@
 # Base image is a slim version of Open JDK
 FROM openjdk:8-jdk-slim
 
-# Hadoop env variables
+# Hadoop enviroment
 ENV HADOOP_VERSION=3.4.0
 ENV HADOOP_MINOR_VERSION=3.4
 ENV HADOOP_HOME=/usr/hadoop-$HADOOP_VERSION
@@ -11,7 +11,12 @@ ENV HDFS_DATANODE_USER="$HDFS_NAMENODE_USER"
 ENV HDFS_SECONDARYNAMENODE_USER="$HDFS_NAMENODE_USER"
 ENV YARN_RESOURCEMANAGER_USER="$HDFS_NAMENODE_USER"
 ENV YARN_NODEMANAGER_USER="$HDFS_NAMENODE_USER"
-ENV PATH=$PATH:$JAVA_HOME/bin:$HADOOP_HOME/bin:$HADOOP_HOME/sbin
+ENV PATH=$PATH:$JAVA_HOME/bin:$HADOOP_HOME/bin:$HADOOP_HOME/sbin:$HADOOP_HOME/spark/bin:$HADOOP_HOME/spark/sbin
+
+# Spark enviroment
+ENV SPARK_VERSION=3.5.3
+ENV HADOOP_MINOR_VERSION=3.5
+ENV SPARK_HOME=$HADOOP_HOME/spark
 
 # Update packages
 RUN apt-get update
@@ -25,7 +30,12 @@ RUN tar zvxf hadoop-${HADOOP_VERSION}.tar.gz -C /usr/
 RUN rm hadoop-${HADOOP_VERSION}.tar.gz 
 RUN rm -rf ${HADOOP_HOME}/share/doc
 
-# Giving root permisions to hadoop directories
+# Download and install spark if needed
+RUN wget -nc -c --no-check-certificate "https://dlcdn.apache.org/spark/spark-${SPARK_VERSION}/spark-${SPARK_VERSION}-bin-hadoop3.tgz"
+RUN tar zvxf spark-${SPARK_VERSION}-bin-hadoop3.tgz.tar.gz -C ${SPARK_HOME}
+RUN rm spark-${SPARK_VERSION}-bin-hadoop3.tgz.tar.gz
+
+# Give root permisions to hadoop directories
 RUN chown -R root:root ${HADOOP_HOME}
 
 # Exporting JAVA_HOME to environment
@@ -41,8 +51,11 @@ RUN chmod 600 /root/.ssh/config
 # Run commands as sudo
 RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 
-# Copy hadoop config files to 
+# Copy hadoop config files 
 COPY config/hadoop/* /usr/hadoop-${HADOOP_VERSION}/etc/hadoop/
+
+# Copy spark files
+COPY /config/spark/* ${SPARK_HOME}/conf/
 
 # Move bootstrap.sh into container
 COPY config/scripts /
