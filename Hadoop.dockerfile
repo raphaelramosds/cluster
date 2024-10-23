@@ -11,12 +11,7 @@ ENV HDFS_DATANODE_USER="$HDFS_NAMENODE_USER"
 ENV HDFS_SECONDARYNAMENODE_USER="$HDFS_NAMENODE_USER"
 ENV YARN_RESOURCEMANAGER_USER="$HDFS_NAMENODE_USER"
 ENV YARN_NODEMANAGER_USER="$HDFS_NAMENODE_USER"
-ENV PATH=$PATH:$JAVA_HOME/bin:$HADOOP_HOME/bin:$HADOOP_HOME/sbin:$HADOOP_HOME/spark/bin:$HADOOP_HOME/spark/sbin
-
-# Spark enviroment
-ENV SPARK_VERSION=3.5.3
-ENV HADOOP_MINOR_VERSION=3.5
-ENV SPARK_HOME=$HADOOP_HOME/spark
+ENV PATH=$PATH:$JAVA_HOME/bin:$HADOOP_HOME/bin:$HADOOP_HOME/sbin
 
 # Update packages
 RUN apt-get update
@@ -30,13 +25,7 @@ RUN tar zvxf hadoop-${HADOOP_VERSION}.tar.gz -C /usr/
 RUN rm hadoop-${HADOOP_VERSION}.tar.gz 
 RUN rm -rf ${HADOOP_HOME}/share/doc
 
-# Download and install spark if needed
-RUN mkdir -p ${SPARK_HOME}
-RUN wget -nc -c --no-check-certificate "https://dlcdn.apache.org/spark/spark-${SPARK_VERSION}/spark-${SPARK_VERSION}-bin-hadoop3.tgz"
-RUN tar zvxf spark-${SPARK_VERSION}-bin-hadoop3.tgz -C ${SPARK_HOME} --strip-components=1
-RUN rm spark-${SPARK_VERSION}-bin-hadoop3.tgz
-
-# Give root permisions to hadoop directories
+# Give root permisions of hadoop directories
 RUN chown -R root:root ${HADOOP_HOME}
 
 # Exporting JAVA_HOME to environment
@@ -52,17 +41,11 @@ RUN chmod 600 /root/.ssh/config
 # Run commands as sudo
 RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 
-# Copy hadoop config files 
+# Copy hadoop config files to 
 COPY config/hadoop/* /usr/hadoop-${HADOOP_VERSION}/etc/hadoop/
 
-# Copy spark files
-COPY /config/spark/* ${SPARK_HOME}/conf/
-
 # Move bootstrap.sh into container
-COPY config/scripts /
+COPY config/bootstrap.sh /
 
 # Give execution permissions to bootstrap.sh
 RUN chmod 0700 bootstrap.sh
-
-# Execute bootstrap.sh once the container is started
-ENTRYPOINT ["/bin/bash", "bootstrap.sh"]

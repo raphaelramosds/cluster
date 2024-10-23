@@ -1,7 +1,5 @@
 .PHONY: build
 
-hadoop:
-	@docker build -f Dockerfile.hadoop -t raphael/base-hadoop .
-
-spark:
-	@docker build -f Dockerfile.spark -t raphael/base-spark .
+build:
+	@docker build -f Hadoop.dockerfile -t raphael/base-hadoop .
+	@docker build -f Spark.dockerfile -t raphael/spark .

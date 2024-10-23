@@ -38,7 +38,7 @@ if [[ $HOSTNAME == "master" ]]; then
     $SPARK_HOME/sbin/start-history-server.sh
     printf "${SUCCESS} History server launched\n"
 
-    printf "${SUCCESS} Code away, you sick data engineer!\n"
+    printf "${INFO} Code away, you sick data engineer!\n"
 fi
 
 # Starting bash terminal for keeping slaves alive

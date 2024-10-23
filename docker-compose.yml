@@ -1,7 +1,7 @@
 version: "3.7"
 services:
   master:
-    image: raphael/base-hadoop
+    image: raphael/spark
     container_name: master
     hostname: master
     tty: true
@@ -10,12 +10,14 @@ services:
     ports:
       - "8088:8088/tcp"
       - "9870:9870/tcp"
+      - "4040:4040/tcp"    
+      - "18080:18080/tcp"
     networks: 
       hadoop-network:
         ipv4_address: 10.5.0.2
 
   slave0:
-    image: raphael/base-hadoop
+    image: raphael/spark
     container_name: slave0
     hostname: slave0
     tty: true
@@ -28,7 +30,7 @@ services:
         ipv4_address: 10.5.0.3
 
   slave1:
-    image: raphael/base-hadoop
+    image: raphael/spark
     container_name: slave1
     hostname: slave1
     tty: true

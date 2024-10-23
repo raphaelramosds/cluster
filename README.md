@@ -6,7 +6,7 @@ Setting up a hadoop cluster with Docker
 
 ```bash
 # Build image
-make spark
+make
 
 # Run containers
 docker compose up -d
