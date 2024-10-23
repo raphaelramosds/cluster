@@ -1,10 +1,12 @@
 # Hadoop cluster with Docker
 
+## How to run
+
 Setting up a hadoop cluster with Docker
 
 ```bash
 # Build image
-make
+make hadoop
 
 # Run containers
 docker compose up -d
