@@ -1,0 +1,6 @@
+version: "3.7"
+services:
+  master:
+    ports:
+      - "4040:4040/tcp"     # Spark History
+      - "18080:18080/tcp"   # Spark History Server
