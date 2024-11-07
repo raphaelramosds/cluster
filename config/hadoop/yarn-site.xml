@@ -19,7 +19,7 @@
     </property>
     <property>
         <name>yarn.nodemanager.resource.memory-mb</name>
-        <value>2048</value>
+        <value>1536</value>
     </property>
     <property>
         <name>yarn.scheduler.minimum-allocation-mb</name>
@@ -29,7 +29,7 @@
         <name>yarn.scheduler.maximum-allocation-mb</name>
         <value>1536</value>
     </property>
-        <property>
+    <property>
         <name>yarn.scheduler.capacity.maximum-am-resource-percent</name>
         <value>0.9</value>
         <description>Maximum percent of resources in the cluster which can be used to run application masters - controls number of concurrent active applications.</description>
