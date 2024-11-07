@@ -1,0 +1,6 @@
+# Ignore data except README
+user/*
+!user/README.md
+
+# Ignore download files
+*.*gz

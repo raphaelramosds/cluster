@@ -5,6 +5,9 @@
 Setting up a hadoop cluster with Docker
 
 ```bash
+# Download spark and hadoop
+bash download.sh
+
 # Build image
 make
 

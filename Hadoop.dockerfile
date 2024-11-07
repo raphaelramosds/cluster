@@ -20,7 +20,8 @@ RUN apt-get update
 RUN apt-get install -y wget vim ssh openssh-server curl iputils-ping python3 python3-pip python3-dev build-essential libssl-dev sudo
 
 # Download and install hadoop if needed
-RUN wget -nc -c --no-check-certificate "https://dlcdn.apache.org/hadoop/common/hadoop-${HADOOP_VERSION}/hadoop-${HADOOP_VERSION}.tar.gz"
+# RUN wget -nc -c --no-check-certificate "https://dlcdn.apache.org/hadoop/common/hadoop-${HADOOP_VERSION}/hadoop-${HADOOP_VERSION}.tar.gz"
+COPY hadoop-${HADOOP_VERSION}.tar.gz ./
 RUN tar zvxf hadoop-${HADOOP_VERSION}.tar.gz -C /usr/
 RUN rm hadoop-${HADOOP_VERSION}.tar.gz 
 RUN rm -rf ${HADOOP_HOME}/share/doc
