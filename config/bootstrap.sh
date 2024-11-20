@@ -10,6 +10,9 @@ SUCCESS="[${GREEN_COLOR}SUCCESS${RESET_COLORS}]"
 # Start SSH service
 /etc/init.d/ssh start
 
+# Load .bashrc
+source ~/.bashrc
+
 # Only execute this on master
 if [[ $HOSTNAME == "master" ]]; then
 
@@ -38,7 +41,7 @@ if [[ $HOSTNAME == "master" ]]; then
     $SPARK_HOME/sbin/start-history-server.sh
     printf "${SUCCESS} History server launched\n"
 
-    printf "${INFO} Code away, you sick data engineer!\n"
+    printf "${SUCCESS} CODE AWAY!\n"
 fi
 
 # Starting bash terminal for keeping slaves alive

@@ -1,5 +1,12 @@
 # Hadoop cluster with Docker
 
+## Specifications
+
+This cluster is set upt with the follow technologies
+
+- Apache Hadoop
+- Apache Spark
+
 ## How to run
 
 Setting up a hadoop cluster with Docker
@@ -9,11 +16,8 @@ Setting up a hadoop cluster with Docker
 bash download.sh
 
 # Build image
-make
+docker compose build
 
-# Run containers
+# Build image and run containers
 docker compose up -d
-
-# Stop containers
-docker compose stop
 ```

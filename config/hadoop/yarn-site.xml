@@ -39,7 +39,7 @@
 
     <property>
         <name>yarn.scheduler.capacity.maximum-am-resource-percent</name>
-        <value>0.7</value>
+        <value>0.9</value>
     </property>
 
     <property>
