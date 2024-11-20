@@ -17,3 +17,6 @@
 echo "Downloading Apache Hadoop 3.4.0 and Apache Spark 3.5.3 ..."
 wget -nc --no-check-certificate https://dlcdn.apache.org/hadoop/common/hadoop-3.4.0/hadoop-3.4.0.tar.gz
 wget -nc --no-check-certificate https://dlcdn.apache.org/spark/spark-3.5.3/spark-3.5.3-bin-hadoop3.tgz
+
+echo "Downloading JDBC driver ..."
+wget -nc --no-check-certificate https://jdbc.postgresql.org/download/postgresql-42.7.4.jar

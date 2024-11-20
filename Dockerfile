@@ -44,6 +44,9 @@ RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 COPY config/hadoop/* /usr/hadoop-${HADOOP_VERSION}/etc/hadoop/
 COPY config/spark/* ${SPARK_HOME}/conf/
 
+# Copy JDBC driver to jars folder
+COPY postgresql-42.7.4.jar ${SPARK_HOME}/jars/
+
 # Load environment variables into .bashrc file
 COPY config/enviroment /
 RUN cat enviroment >> /root/.bashrc
