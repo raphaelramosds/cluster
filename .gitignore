@@ -1,5 +1,5 @@
 # Ignore data except README
-.idea/
+.idea/*
 user/*
 !user/README.md
 
