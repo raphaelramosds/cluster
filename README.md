@@ -1,11 +1,13 @@
-# Hadoop cluster with Docker
+# Cluster for Data Engineering
 
 ## Specifications
 
-This cluster is set upt with the follow technologies
+This cluster is set up via Docker. It uploads the follow technologies as containers
 
 - Apache Hadoop
 - Apache Spark
+- MongoDB
+- PostgreSQL
 
 ## How to run
 
