@@ -54,10 +54,23 @@ services:
     volumes:
       - pgdata-cluster:/var/lib/postgresql/data
     ports:
-      - 5433:5432
+      - "5433:5432"
     networks:
       hadoop-network:
         ipv4_address: 10.5.0.5
+
+  mongo-db:
+    container_name: mongo-db
+    image: mongo
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: root
+    ports:
+      - "27017:27017"
+    networks:
+      hadoop-network:
+        ipv4_address: 10.5.0.6
 
 networks:
   hadoop-network:
