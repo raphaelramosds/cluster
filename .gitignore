@@ -4,8 +4,8 @@ user/*
 !user/README.md
 !user/lab6
 
-config/mongodb
 !config/mongodb/README.md
+config/mongodb/keyfile
 
 # Ignore download files
 *.*gz
