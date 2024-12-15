@@ -1,0 +1,12 @@
+{
+  "name":"mongo",
+  "config" : {
+    "connector.class": "io.debezium.connector.mongodb.MongoDbConnector",
+    "mongodb.hosts": "mongod-db:27017",
+    "mongodb.name" : "engdados",
+    "mongodb.user": "root",
+    "mongodb.password": "root",
+    "topic.prefix": "meu-topico",
+    "value.converter": "org.apache.kafka.connect.json.JsonConverter"
+  }
+}

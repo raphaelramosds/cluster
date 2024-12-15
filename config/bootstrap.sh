@@ -43,14 +43,6 @@ if [[ $HOSTNAME == "master" ]]; then
     $SPARK_HOME/sbin/start-history-server.sh
     printf "${SUCCESS} History server launched\n"
 
-    if [ -z "$KAFKA_CLUSTER_ID" ]; then
-        echo "${WARNING} KAFKA_CLUSTER_ID is not defined. Generating one ..."
-        export KAFKA_CLUSTER_ID="$(kafka-storage.sh random-uuid)"
-        echo "${SUCCESS} KAFKA_CLUSTER_ID generated"
-    else
-        echo "${SUCCESS} KAFKA_CLUSTER_ID is defined"
-    fi
-
     printf "${INFO} Creating Kafka logs\n"
     kafka-storage.sh format -t $KAFKA_CLUSTER_ID -c $KAFKA_HOME/config/kraft/server.properties
     printf "${SUCCESS} Kafka logs created\n"
@@ -58,6 +50,10 @@ if [[ $HOSTNAME == "master" ]]; then
     printf "${INFO} Starting Kafka server\n"
     kafka-server-start.sh $KAFKA_HOME/config/kraft/server.properties
     printf "${SUCCESS} Kafka server started\n"
+
+    printf "${INFO} Starting Kafka Connect\n"
+    connect-standalone.sh $KAFKA_HOME/config/connect-standalone.properties
+    printf "${SUCCESS} Kafka Connect started\n"
 
     printf "${SUCCESS} CODE AWAY!\n"
 fi

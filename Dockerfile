@@ -1,5 +1,5 @@
 # Base image is a slim version of Open JDK
-FROM openjdk:8-jdk-slim
+FROM openjdk:11-jdk-slim
 
 # Hadoop and Spark enviroment for this image
 ENV HADOOP_VERSION=3.4.0
@@ -30,12 +30,27 @@ COPY kafka_2.12-3.4.1.tgz ./
 RUN tar xzvf kafka_2.12-3.4.1.tgz -C ${KAFKA_HOME} --strip-components=1
 RUN rm kafka_2.12-3.4.1.tgz
 
+RUN mkdir -p ${KAFKA_HOME}/connect
+COPY debezium-connector-postgres-2.3.0.Final-plugin.tar.gz ./
+RUN tar zvxf debezium-connector-postgres-2.3.0.Final-plugin.tar.gz -C ${KAFKA_HOME}/connect --strip-components=1
+RUN rm debezium-connector-postgres-2.3.0.Final-plugin.tar.gz
+
+COPY debezium-connector-mongodb-3.0.4.Final-plugin.tar.gz ./
+RUN tar zvxf debezium-connector-mongodb-3.0.4.Final-plugin.tar.gz -C ${KAFKA_HOME}/connect --strip-components=1
+RUN rm debezium-connector-mongodb-3.0.4.Final-plugin.tar.gz
+
 # Set up KRaft properties
 RUN sed -i \
     -e 's/^controller\.quorum\.voters=.*/controller.quorum.voters=1@master:9093/' \
     -e 's/^listeners=.*/listeners=PLAINTEXT:\/\/master:9092,CONTROLLER:\/\/master:9093/' \
     -e 's/^advertised\.listeners=.*/advertised.listeners=PLAINTEXT:\/\/master:9092/' \
     ${KAFKA_HOME}/config/kraft/server.properties
+
+# Set up Kafka connect
+RUN sed -i\
+    -e 's/^bootstrap\.servers=.*/bootstrap.servers=master:9092/' \
+    -e 's/^#plugin\.path=.*/plugin.path=$KAFKA_HOME\/connect/' \
+    ${KAFKA_HOME}/config/connect-standalone.properties
 
 # Give root permisions of hadoop directories
 RUN chown -R root:root ${HADOOP_HOME}
