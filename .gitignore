@@ -3,6 +3,7 @@
 user/*
 !user/README.md
 !user/lab6
+config/mongodb
 
 # Ignore download files
 *.*gz

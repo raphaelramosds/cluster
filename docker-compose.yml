@@ -42,8 +42,8 @@ services:
     networks: 
       cluster-network:
 
-  pg-db:
-    container_name: pg-db
+  pgdb:
+    container_name: pgdb
     image: postgres:15
     restart: no
     environment:
@@ -55,13 +55,16 @@ services:
     networks:
       cluster-network:
 
-  mongo-db:
-    container_name: mongo-db
+  mongodb:
+    container_name: mongodb
     image: mongo
     restart: always
+    command: ["bash", "-c", "chown mongodb:mongodb /data/keyfile && chmod 400 /data/keyfile && mongod --replSet rs0 --bind_ip_all --auth --keyFile /data/keyfile"]
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: root
+    volumes:
+      - ./config/mongodb/keyfile:/data/keyfile
     ports:
       - "27017:27017"
     networks:

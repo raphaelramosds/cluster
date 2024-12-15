@@ -1,0 +1,15 @@
+{
+  "name": "mongodb", 
+  "config": {
+    "connector.class": "io.debezium.connector.mongodb.MongoDbConnector",
+    "tasks.max": "1",
+    "mongodb.hosts": "rs0/02a321fac6dc:27017",
+    "mongodb.name": "engdados",
+    "mongodb.user": "root",
+    "mongodb.password": "root",
+    "database.history.kafka.bootstrap.servers": "master:9092",
+    "database.history.kafka.topic": "meu-topico",
+    "collection.include.list": "engdados.mycollection",
+    "snapshot.mode": "initial"
+  }
+}

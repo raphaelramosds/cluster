@@ -39,6 +39,9 @@ COPY debezium-connector-mongodb-3.0.4.Final-plugin.tar.gz ./
 RUN tar zvxf debezium-connector-mongodb-3.0.4.Final-plugin.tar.gz -C ${KAFKA_HOME}/connect --strip-components=1
 RUN rm debezium-connector-mongodb-3.0.4.Final-plugin.tar.gz
 
+# Copy Debezium config connects
+COPY config/debezium/*.json ${KAFKA_HOME}/connect
+
 # Set up KRaft properties
 RUN sed -i \
     -e 's/^controller\.quorum\.voters=.*/controller.quorum.voters=1@master:9093/' \
@@ -46,7 +49,7 @@ RUN sed -i \
     -e 's/^advertised\.listeners=.*/advertised.listeners=PLAINTEXT:\/\/master:9092/' \
     ${KAFKA_HOME}/config/kraft/server.properties
 
-# Set up Kafka connect
+# Set up Kafka Connect
 RUN sed -i\
     -e 's/^bootstrap\.servers=.*/bootstrap.servers=master:9092/' \
     -e 's/^#plugin\.path=.*/plugin.path=$KAFKA_HOME\/connect/' \

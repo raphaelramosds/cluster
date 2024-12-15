@@ -48,11 +48,13 @@ if [[ $HOSTNAME == "master" ]]; then
     printf "${SUCCESS} Kafka logs created\n"
 
     printf "${INFO} Starting Kafka server\n"
-    kafka-server-start.sh $KAFKA_HOME/config/kraft/server.properties
+    kafka-server-start.sh $KAFKA_HOME/config/kraft/server.properties &
+    sleep 5
     printf "${SUCCESS} Kafka server started\n"
 
     printf "${INFO} Starting Kafka Connect\n"
-    connect-standalone.sh $KAFKA_HOME/config/connect-standalone.properties
+    connect-standalone.sh $KAFKA_HOME/config/connect-standalone.properties &
+    sleep 5
     printf "${SUCCESS} Kafka Connect started\n"
 
     printf "${SUCCESS} CODE AWAY!\n"
