@@ -10,7 +10,7 @@ This cluster is set up via Docker. It uploads the follow technologies as contain
 - MongoDB
 - PostgreSQL
 
-> **WARNING.** Learn [How to setup a replica set on MongoDB](https://www.mongodb.com/docs/v6.2/tutorial/deploy-replica-set-with-keyfile-access-control/), so Debezium can monitor MongoDB collections. It's importantes because Docker compose will search for a keyfile on the mongodb directory
+> **WARNING.** Learn [How to setup a replica set on MongoDB](https://www.mongodb.com/docs/v6.2/tutorial/deploy-replica-set-with-keyfile-access-control/), so Debezium can monitor MongoDB collections. It's extremely important because Docker compose will search for a keyfile on the MongoDB directory
 
 ## How to run
 
