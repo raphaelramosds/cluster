@@ -6,6 +6,7 @@ This cluster is set up via Docker. It uploads the follow technologies as contain
 
 - Apache Hadoop
 - Apache Spark
+- Apache Kafka
 - MongoDB
 - PostgreSQL
 
@@ -14,7 +15,7 @@ This cluster is set up via Docker. It uploads the follow technologies as contain
 Setting up a hadoop cluster with Docker
 
 ```bash
-# Download spark and hadoop
+# Download some dependencies
 bash download.sh
 
 # Build image

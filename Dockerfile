@@ -6,6 +6,7 @@ ENV HADOOP_VERSION=3.4.0
 ENV HADOOP_HOME=/usr/hadoop-$HADOOP_VERSION
 ENV SPARK_VERSION=3.5.3
 ENV SPARK_HOME=$HADOOP_HOME/spark
+ENV KAFKA_HOME=$SPARK_HOME/kafka
 
 # Update packages
 RUN apt-get update
@@ -13,7 +14,7 @@ RUN apt-get update
 # Install required packages
 RUN apt-get install -y wget vim ssh openssh-server curl iputils-ping python3 python3-pip python3-dev build-essential libssl-dev sudo
 
-# Copy and extract Hadoop and Spark files
+# Copy and extract dependencies
 COPY hadoop-${HADOOP_VERSION}.tar.gz ./
 RUN tar zvxf hadoop-${HADOOP_VERSION}.tar.gz -C /usr/
 RUN rm hadoop-${HADOOP_VERSION}.tar.gz 
@@ -23,6 +24,18 @@ RUN mkdir -p ${SPARK_HOME}
 COPY spark-${SPARK_VERSION}-bin-hadoop3.tgz ./
 RUN tar zvxf spark-${SPARK_VERSION}-bin-hadoop3.tgz -C ${SPARK_HOME} --strip-components=1
 RUN rm spark-${SPARK_VERSION}-bin-hadoop3.tgz
+
+RUN mkdir -p ${KAFKA_HOME}
+COPY kafka_2.12-3.4.1.tgz ./
+RUN tar xzvf kafka_2.12-3.4.1.tgz -C ${KAFKA_HOME} --strip-components=1
+RUN rm kafka_2.12-3.4.1.tgz
+
+# Set up KRaft properties
+RUN sed -i \
+    -e 's/^controller\.quorum\.voters=.*/controller.quorum.voters=1@master:9093/' \
+    -e 's/^listeners=.*/listeners=PLAINTEXT:\/\/master:9092,CONTROLLER:\/\/master:9093/' \
+    -e 's/^advertised\.listeners=.*/advertised.listeners=PLAINTEXT:\/\/master:9092/' \
+    ${KAFKA_HOME}/config/kraft/server.properties
 
 # Give root permisions of hadoop directories
 RUN chown -R root:root ${HADOOP_HOME}

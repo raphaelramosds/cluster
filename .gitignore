@@ -1,7 +1,8 @@
-# Ignore data except README
+# Ignore data except README and lab directory
 .idea/*
 user/*
 !user/README.md
+!user/lab6
 
 # Ignore download files
 *.*gz

@@ -3,9 +3,11 @@
 # For convenience's sake
 BLUE=$(tput setaf 4)
 GREEN_COLOR=$(tput setaf 2)
+YELLOW_COLOR=$(tput setaf 3)
 RESET_COLORS=$(tput sgr0)
 INFO="[${BLUE}INFO${RESET_COLORS}]"
 SUCCESS="[${GREEN_COLOR}SUCCESS${RESET_COLORS}]"
+WARNING="[${YELLOW_COLOR}WARNING${RESET_COLORS}]"
 
 # Start SSH service
 /etc/init.d/ssh start
@@ -28,7 +30,7 @@ if [[ $HOSTNAME == "master" ]]; then
     $HADOOP_HOME/sbin/start-yarn.sh
     printf "${SUCCESS} Yarn started\n"
 
-    printf "${INFO} Creating spark logs\n"
+    printf "${INFO} Creating Spark logs\n"
     hdfs dfs -mkdir /spark-logs
     printf "${SUCCESS} Spark logs created\n"
 
@@ -37,9 +39,25 @@ if [[ $HOSTNAME == "master" ]]; then
     hdfs dfs -put $HADOOP_HOME/spark/jars/*.jar /spark-libs/
     printf "${SUCCESS} JAR files sent\n"
 
-    printf "${INFO} Start spark history server\n"
+    printf "${INFO} Starting Spark history server\n"
     $SPARK_HOME/sbin/start-history-server.sh
     printf "${SUCCESS} History server launched\n"
+
+    if [ -z "$KAFKA_CLUSTER_ID" ]; then
+        echo "${WARNING} KAFKA_CLUSTER_ID is not defined. Generating one ..."
+        export KAFKA_CLUSTER_ID="$(kafka-storage.sh random-uuid)"
+        echo "${SUCCESS} KAFKA_CLUSTER_ID generated"
+    else
+        echo "${SUCCESS} KAFKA_CLUSTER_ID is defined"
+    fi
+
+    printf "${INFO} Creating Kafka logs\n"
+    kafka-storage.sh format -t $KAFKA_CLUSTER_ID -c $KAFKA_HOME/config/kraft/server.properties
+    printf "${SUCCESS} Kafka logs created\n"
+
+    printf "${INFO} Starting Kafka server\n"
+    kafka-server-start.sh $KAFKA_HOME/config/kraft/server.properties
+    printf "${SUCCESS} Kafka server started\n"
 
     printf "${SUCCESS} CODE AWAY!\n"
 fi

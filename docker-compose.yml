@@ -1,7 +1,7 @@
 version: "3.7"
 services:
   master:
-    image: raphael/hadoop-docker
+    image: raphael/cluster
     build:
       dockerfile: Dockerfile
       context: .
@@ -16,11 +16,10 @@ services:
       - "4040:4040/tcp"    
       - "18080:18080/tcp"
     networks: 
-      hadoop-network:
-        ipv4_address: 10.5.0.2
+      cluster-network:
 
   slave0:
-    image: raphael/hadoop-docker
+    image: raphael/cluster
     container_name: slave0
     hostname: slave0
     tty: true
@@ -29,11 +28,10 @@ services:
     ports:
       - "6042:8042"
     networks: 
-      hadoop-network:
-        ipv4_address: 10.5.0.3
+      cluster-network:
 
   slave1:
-    image: raphael/hadoop-docker
+    image: raphael/cluster
     container_name: slave1
     hostname: slave1
     tty: true
@@ -42,8 +40,7 @@ services:
     ports:
       - "7042:8042"
     networks: 
-      hadoop-network:
-        ipv4_address: 10.5.0.4
+      cluster-network:
 
   pg-db:
     container_name: pg-db
@@ -56,8 +53,7 @@ services:
     ports:
       - "5433:5432"
     networks:
-      hadoop-network:
-        ipv4_address: 10.5.0.5
+      cluster-network:
 
   mongo-db:
     container_name: mongo-db
@@ -69,11 +65,10 @@ services:
     ports:
       - "27017:27017"
     networks:
-      hadoop-network:
-        ipv4_address: 10.5.0.6
+      cluster-network:
 
 networks:
-  hadoop-network:
+  cluster-network:
     driver: bridge
     ipam:
      driver: default

@@ -20,3 +20,6 @@ wget -nc --no-check-certificate https://dlcdn.apache.org/spark/spark-3.5.3/spark
 
 echo "Downloading JDBC driver ..."
 wget -nc --no-check-certificate https://jdbc.postgresql.org/download/postgresql-42.7.4.jar
+
+echo "Downloading Apache Kafka ..."
+wget -nc --no-check-certificate https://archive.apache.org/dist/kafka/3.4.1/kafka_2.12-3.4.1.tgz
