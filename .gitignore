@@ -1,12 +1,16 @@
-# Ignore data except README and lab directory
 .idea/*
 user/*
+config/airflow/logs/*
+
 !user/README.md
 !user/lab
 
+!config/airflow/logs/README.md
 !config/mongodb/README.md
+
 config/mongodb/keyfile
 
-# Ignore download files
 *.*gz
 *.jar
+
+.env

@@ -9,6 +9,14 @@ sudo openssl rand -base64 756 keyfile
 sudo chmod 400 keyfile
 ```
 
+## Update MongoDB service
+
+On the mongodb service, inside docker-compose.yml, update command to
+
+```yml
+command: ["bash", "-c", "chown mongodb:mongodb /data/keyfile && chmod 400 /data/keyfile && mongod --replSet rs0 --bind_ip localhost,mongodb --auth --keyFile /data/keyfile"]
+```
+
 ## Create the replica set
 
 Enter on Mongo shell

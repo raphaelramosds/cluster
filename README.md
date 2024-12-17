@@ -18,6 +18,10 @@ Setting up a hadoop cluster with Docker
 # Download some dependencies
 bash download.sh
 
+# Airflow enviroment
+echo -e "AIRFLOW_UID=$(id -u)" > .env
+echo -e "AIRFLOW_PROJ_DIR=./config/airflow" >> .env
+
 # Build image
 docker compose build
 

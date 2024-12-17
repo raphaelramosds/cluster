@@ -30,30 +30,18 @@ services:
     networks: 
       cluster-network:
 
-  slave1:
-    image: raphael/cluster
-    container_name: slave1
-    hostname: slave1
-    tty: true
-    depends_on:
-      - master
-    ports:
-      - "7042:8042"
-    networks: 
-      cluster-network:
-
-  pgdb:
-    container_name: pgdb
-    image: postgres:15
-    restart: no
-    environment:
-      POSTGRES_PASSWORD: root
-    volumes:
-      - pgdata-cluster:/var/lib/postgresql/data
-    ports:
-      - "5433:5432"
-    networks:
-      cluster-network:
+  # WARNING don't have enough RAM
+  # slave1:
+  #   image: raphael/cluster
+  #   container_name: slave1
+  #   hostname: slave1
+  #   tty: true
+  #   depends_on:
+  #     - master
+  #   ports:
+  #     - "7042:8042"
+  #   networks: 
+  #     cluster-network:
 
   mongodb:
     container_name: mongodb
@@ -61,7 +49,6 @@ services:
     restart: always
     # REASSESS It is less secure on this way, maybe I'll regret this
     command: ["bash", "-c", "mongod --replSet rs0 --bind_ip localhost,mongodb --noauth"]
-    # command: ["bash", "-c", "chown mongodb:mongodb /data/keyfile && chmod 400 /data/keyfile && mongod --replSet rs0 --bind_ip localhost,mongodb --auth --keyFile /data/keyfile"]
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: root
@@ -79,6 +66,3 @@ networks:
      driver: default
      config:
        - subnet: 10.5.0.0/16
-
-volumes:
-  pgdata-cluster:
