@@ -27,7 +27,9 @@ docker compose up -d
 
 ## Note
 
-Although everything is going to work, this cluster is not ready to be published on production due to security reasons. And I'm not proud of this. Once the cluster is up, you should follow the steps described [here](./config/mongodb/README.md) so Debezium can **securely** monitor MongoDB collections.
+Although everything is going to work, this cluster is not ready to be published on a production enviroment due to security reasons. And I'm not proud of this. So here some things to do in order to make it more security
+
+- Once the cluster is up, you should follow the steps on [MongoDB Replica set with auth mode](./config/mongodb/README.md) so Debezium can **safely** monitor MongoDB collections.
 
 ## References
 

@@ -1,4 +1,4 @@
-# MongoDB
+# MongoDB Replica set with auth mode
 
 Put your keyfile here, so Debezium can monitor your replica set
 
