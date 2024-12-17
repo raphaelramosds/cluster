@@ -2,7 +2,7 @@
 .idea/*
 user/*
 !user/README.md
-!user/lab6
+!user/lab
 
 !config/mongodb/README.md
 config/mongodb/keyfile
