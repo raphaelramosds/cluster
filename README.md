@@ -25,7 +25,9 @@ docker compose build
 docker compose up -d
 ```
 
-**NOTE.** Once the cluster is up, you must follow the steps described [here](./config/mongodb/README.md) so Debezium can monitor MongoDB collections. Skip this if you don't mind MongoDB being restart over and over again.
+## Note
+
+Although everything is going to work, this cluster is not ready to be published on production due to security reasons. And I'm not proud of this. Once the cluster is up, you should follow the steps described [here](./config/mongodb/README.md) so Debezium can **securely** monitor MongoDB collections.
 
 ## References
 

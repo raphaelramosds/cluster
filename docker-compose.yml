@@ -59,7 +59,9 @@ services:
     container_name: mongodb
     image: mongo
     restart: always
-    command: ["bash", "-c", "chown mongodb:mongodb /data/keyfile && chmod 400 /data/keyfile && mongod --replSet rs0 --bind_ip_all --auth --keyFile /data/keyfile"]
+    # REASSESS It is less secure on this way, maybe I'll regret this
+    command: ["bash", "-c", "mongod --replSet rs0 --bind_ip localhost,mongodb --noauth"]
+    # command: ["bash", "-c", "chown mongodb:mongodb /data/keyfile && chmod 400 /data/keyfile && mongod --replSet rs0 --bind_ip localhost,mongodb --auth --keyFile /data/keyfile"]
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: root

@@ -38,3 +38,11 @@ Finally, fill the property `mongodb.connection.string` on **debezium/mongodb.jso
 ```
 db.getSiblingDB("admin").auth("debezium", passwordPrompt())
 ```
+
+## Connect with PyMongo
+
+In order for you being able to perform operations on MongoDB with PyMongo inside the container master, your database connection string should look like this
+
+```
+mongodb://debezium:root@localhost:27017/?replicaSet=rs0
+```
