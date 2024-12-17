@@ -12,4 +12,4 @@ echo "Downloading Postgres conector Debezium ..."
 wget -nc --no-check-certificate https://repo1.maven.org/maven2/io/debezium/debezium-connector-postgres/2.3.0.Final/debezium-connector-postgres-2.3.0.Final-plugin.tar.gz
 
 echo "Downloading MongoDB conector Debezium ..."
-wget -nc --no-check-certificate https://repo1.maven.org/maven2/io/debezium/debezium-connector-mongodb/3.0.4.Final/debezium-connector-mongodb-3.0.4.Final-plugin.tar.gz
+wget -nc --no-check-certificate https://repo1.maven.org/maven2/io/debezium/debezium-connector-mongodb/2.7.3.Final/debezium-connector-mongodb-2.7.3.Final-plugin.tar.gz

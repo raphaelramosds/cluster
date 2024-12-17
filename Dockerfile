@@ -32,15 +32,15 @@ RUN rm kafka_2.12-3.4.1.tgz
 
 RUN mkdir -p ${KAFKA_HOME}/connect
 COPY debezium-connector-postgres-2.3.0.Final-plugin.tar.gz ./
-RUN tar zvxf debezium-connector-postgres-2.3.0.Final-plugin.tar.gz -C ${KAFKA_HOME}/connect --strip-components=1
+RUN tar zvxf debezium-connector-postgres-2.3.0.Final-plugin.tar.gz -C ${KAFKA_HOME}/connect
 RUN rm debezium-connector-postgres-2.3.0.Final-plugin.tar.gz
 
-COPY debezium-connector-mongodb-3.0.4.Final-plugin.tar.gz ./
-RUN tar zvxf debezium-connector-mongodb-3.0.4.Final-plugin.tar.gz -C ${KAFKA_HOME}/connect --strip-components=1
-RUN rm debezium-connector-mongodb-3.0.4.Final-plugin.tar.gz
+COPY debezium-connector-mongodb-2.7.3.Final-plugin.tar.gz ./
+RUN tar zvxf debezium-connector-mongodb-2.7.3.Final-plugin.tar.gz -C ${KAFKA_HOME}/connect
+RUN rm debezium-connector-mongodb-2.7.3.Final-plugin.tar.gz
 
-# Copy Debezium config connects
-COPY config/debezium/*.json ${KAFKA_HOME}/connect
+# Copy Debezium MongoDB connect
+COPY config/debezium/mongodb.json ${KAFKA_HOME}/connect/debezium-connector-mongodb
 
 # Set up KRaft properties
 RUN sed -i \
@@ -50,9 +50,9 @@ RUN sed -i \
     ${KAFKA_HOME}/config/kraft/server.properties
 
 # Set up Kafka Connect
-RUN sed -i\
-    -e 's/^bootstrap\.servers=.*/bootstrap.servers=master:9092/' \
-    -e 's/^#plugin\.path=.*/plugin.path=$KAFKA_HOME\/connect/' \
+RUN sed -i \
+    -e "s/^bootstrap\.servers=.*/bootstrap.servers=master:9092/" \
+    -e "s|^#plugin\.path=.*|plugin.path=${KAFKA_HOME}/connect|" \
     ${KAFKA_HOME}/config/connect-standalone.properties
 
 # Give root permisions of hadoop directories

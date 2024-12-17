@@ -3,13 +3,7 @@
   "config": {
     "connector.class": "io.debezium.connector.mongodb.MongoDbConnector",
     "tasks.max": "1",
-    "mongodb.hosts": "rs0/mongodb:27017",
-    "mongodb.name": "engdados",
-    "mongodb.user": "root",
-    "mongodb.password": "root",
-    "database.history.kafka.bootstrap.servers": "master:9092",
-    "database.history.kafka.topic": "meu-topico",
-    "collection.include.list": "engdados.mycollection",
-    "snapshot.mode": "initial"
+    "mongodb.connection.string":"mongodb://fred:root@mongodb:27017/?replicaSet=rs0",
+    "topic.prefix": "meu-topico"
   }
 }
