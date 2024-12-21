@@ -30,24 +30,22 @@ services:
     networks: 
       cluster-network:
 
-  # WARNING don't have enough RAM
-  # slave1:
-  #   image: raphael/cluster
-  #   container_name: slave1
-  #   hostname: slave1
-  #   tty: true
-  #   depends_on:
-  #     - master
-  #   ports:
-  #     - "7042:8042"
-  #   networks: 
-  #     cluster-network:
+  slave1:
+    image: raphael/cluster
+    container_name: slave1
+    hostname: slave1
+    tty: true
+    depends_on:
+      - master
+    ports:
+      - "6043:8042"
+    networks: 
+      cluster-network:
 
   mongodb:
     container_name: mongodb
     image: mongo
     restart: always
-    # REASSESS It is less secure on this way, maybe I'll regret this
     command: ["bash", "-c", "mongod --replSet rs0 --bind_ip localhost,mongodb --noauth"]
     environment:
       MONGO_INITDB_ROOT_USERNAME: root

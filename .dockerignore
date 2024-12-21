@@ -1,0 +1,11 @@
+.git/
+.gitignore
+.gitattributes
+.dockerignore
+Dockerfile
+.env
+*.yml
+LICENSE
+LICENSE.apache
+README.md
+download.sh
