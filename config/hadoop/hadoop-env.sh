@@ -93,7 +93,7 @@ export LANG=en_US.UTF-8
 # IPv6 yet/still, so by default the preference is set to IPv4.
 # export HADOOP_OPTS="-Djava.net.preferIPv4Stack=true"
 # For Kerberos debugging, an extended option set logs more information
-# export HADOOP_OPTS="-Djava.net.preferIPv4Stack=true -Dsun.security.krb5.debug=true -Dsun.security.spnego.debug"
+export HADOOP_OPTS="${HADOOP_OPTS} -XX:-PrintWarnings -Djava.net.preferIPv4Stack=true -Djava.library.path=${HADOOP_HOME}/lib/native"
 
 # Some parts of the shell code may do special things dependent upon
 # the operating system.  We have to set this here. See the next

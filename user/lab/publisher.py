@@ -17,6 +17,7 @@ alunos = db.alunos
 
 # Inserção de registro
 alunos.insert_one({
-    "nome" : "FUNCIONOU PORRA",
-    "idade" : 69,
+    "nome" : "Raphael Ramos",
+    "idade" : 23,
+    "date" : '2001-04-25'
 })

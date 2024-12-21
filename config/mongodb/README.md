@@ -14,7 +14,7 @@ sudo chmod 400 keyfile
 On the mongodb service, inside docker-compose.yml, update command to
 
 ```yml
-command: ["bash", "-c", "chown mongodb:mongodb /data/keyfile && chmod 400 /data/keyfile && mongod --replSet rs0 --bind_ip localhost,mongodb --auth --keyFile /data/keyfile"]
+command: ["bash", "-c", "chown mongodb:mongodb /data/keyfile && chmod 400 /data/keyfile && mongod --replSet rs0 --bind_ip_all --auth --keyFile /data/keyfile"]
 ```
 
 ## Create the replica set
@@ -28,7 +28,7 @@ mongosh
 Create your replica set
 
 ```
-rs.initiate({ _id:"rs0", members : [{ _id: 0, host: "mongodb:27017" }] })
+rs.initiate({ _id:"rs0", members : [{ _id: 0, host: "mongodb:27017" }] });
 ```
 
 ## Create a user for debezium on MongoDB

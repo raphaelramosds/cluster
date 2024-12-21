@@ -34,6 +34,7 @@ docker compose up -d
 Although everything is going to work, this cluster is not ready to be published on a production enviroment due to security reasons. And I'm not proud of this. So here some things to do in order to make it more security
 
 - Once the cluster is up, you should follow the steps on [MongoDB Replica set with auth mode](./config/mongodb/README.md) so Debezium can **safely** monitor MongoDB collections.
+- Containers are running with root permissions, but one should create an user on Dockerfile for them
 
 ## References
 
